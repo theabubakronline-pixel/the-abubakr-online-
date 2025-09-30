@@ -96,16 +96,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Navbar background on scroll
+    // Navbar scroll effect with new design
     const nav = document.querySelector('.nav');
     if (nav) {
         window.addEventListener('scroll', function() {
             if (window.scrollY > 100) {
-                nav.style.background = 'rgba(255, 255, 255, 0.98)';
-                nav.style.boxShadow = '0 4px 20px rgba(11, 19, 43, 0.1)';
+                nav.classList.add('scrolled');
             } else {
-                nav.style.background = 'rgba(255, 255, 255, 0.95)';
-                nav.style.boxShadow = 'none';
+                nav.classList.remove('scrolled');
             }
         });
     }

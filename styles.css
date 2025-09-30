@@ -122,21 +122,26 @@ p {
     top: 0;
     left: 0;
     right: 0;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--gray-200);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--gray-900);
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.08), 0 1px 0 rgba(255, 255, 255, 0.1) inset;
     z-index: 1000;
     transition: all var(--transition-normal);
+    margin: var(--space-lg) var(--space-2xl) 0;
+    border-radius: var(--radius-2xl);
+    max-width: calc(100% - var(--space-4xl));
 }
 
 .nav-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 var(--space-xl);
+    padding: var(--space-lg) var(--space-xl);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 80px;
+    min-height: 72px;
 }
 
 .nav-logo .logo-text {
@@ -144,12 +149,24 @@ p {
     font-weight: 700;
     color: var(--gray-900);
     text-decoration: none;
+    transition: all var(--transition-fast);
+    position: relative;
+}
+
+.nav-logo .logo-text:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
 }
 
 .nav-links {
     display: flex;
     align-items: center;
-    gap: var(--space-2xl);
+    gap: var(--space-lg);
+    background: rgba(255, 255, 255, 0.8);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-xl);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
 }
 
 .nav-link {
@@ -157,27 +174,51 @@ p {
     font-weight: 500;
     color: var(--gray-600);
     text-decoration: none;
-    transition: color var(--transition-fast);
+    transition: all var(--transition-fast);
     position: relative;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gray-900);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+    border-radius: var(--radius-lg);
 }
 
 .nav-link:hover {
-    color: var(--gray-900);
+    color: var(--white);
+    transform: translateY(-1px);
 }
 
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--blue-500);
-    transition: width var(--transition-fast);
+.nav-link:hover::before {
+    opacity: 1;
 }
 
-.nav-link:hover::after {
-    width: 100%;
+.nav-link span {
+    position: relative;
+    z-index: 1;
+}
+
+/* Header scroll effect */
+.nav.scrolled {
+    margin: var(--space-sm) var(--space-2xl) 0;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12), 0 2px 0 rgba(255, 255, 255, 0.1) inset;
+    border: 1px solid var(--gray-900);
+}
+
+.nav.scrolled .nav-container {
+    padding: var(--space-md) var(--space-xl);
+    min-height: 64px;
 }
 
 /* Hero Section */
@@ -241,19 +282,27 @@ p {
 }
 
 .title-highlight {
-    background: linear-gradient(45deg, #2196F3, #9C27B0);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: #2196F3; /* Fallback color */
+    color: var(--gray-900);
+    font-weight: 900;
+    position: relative;
     display: inline-block;
-    font-weight: inherit;
+}
+
+.title-highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gray-900);
+    border-radius: 2px;
 }
 
 /* Fallback for browsers that don't support background-clip: text */
 @supports not (-webkit-background-clip: text) {
     .title-highlight {
-        color: #2196F3;
+        color: var(--gray-900);
         background: none;
     }
 }
@@ -416,11 +465,37 @@ p {
 .work {
     padding: var(--space-5xl) 0;
     background: var(--white);
+    position: relative;
+}
+
+.work::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--gray-900);
+    border-radius: 2px;
 }
 
 .section-header {
     text-align: center;
     margin-bottom: var(--space-4xl);
+    position: relative;
+}
+
+.section-header::after {
+    content: '';
+    position: absolute;
+    bottom: -var(--space-lg);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: var(--gray-900);
+    border-radius: 1px;
 }
 
 .section-title {
@@ -585,6 +660,19 @@ p {
 .about {
     padding: var(--space-5xl) 0;
     background: var(--gray-50);
+    position: relative;
+}
+
+.about::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--gray-900);
+    border-radius: 2px;
 }
 
 /* About Hero Section */
@@ -1126,6 +1214,19 @@ p {
 .contact {
     padding: var(--space-5xl) 0;
     background: var(--gray-50);
+    position: relative;
+}
+
+.contact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--gray-900);
+    border-radius: 2px;
 }
 
 .contact-content {
@@ -1255,6 +1356,19 @@ p {
     background: var(--gray-900);
     color: var(--white);
     padding: var(--space-4xl) 0 var(--space-2xl);
+    position: relative;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: var(--white);
+    border-radius: 2px;
 }
 
 .footer-content {
@@ -3433,6 +3547,18 @@ p {
     position: relative;
 }
 
+.cta-new::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: var(--white);
+    border-radius: 2px;
+}
+
 .cta-new::after {
     content: '';
     position: absolute;
@@ -3906,8 +4032,25 @@ p {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .nav {
+        margin: var(--space-sm) var(--space-lg) 0;
+        border-radius: var(--radius-xl);
+        border: 1px solid var(--gray-900);
+    }
+    
+    .nav-container {
+        padding: var(--space-md) var(--space-lg);
+        min-height: 64px;
+    }
+    
     .nav-links {
         display: none;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        border-radius: var(--radius-xl);
+        margin-top: var(--space-sm);
     }
     
     .hero-container {
