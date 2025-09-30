@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /
+
+# This website is currently under development
+# Do not index any pages until further notice
