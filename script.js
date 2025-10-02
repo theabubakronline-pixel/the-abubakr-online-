@@ -201,6 +201,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Show latest blog post
+    showLatestBlogPost();
+
     // Add loading animation
     window.addEventListener('load', function() {
         document.body.classList.add('loaded');
@@ -270,6 +273,77 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// Function to show latest blog post
+function showLatestBlogPost() {
+    // Blog posts data - you can update this when you publish new posts
+    const blogPosts = [
+        {
+            id: 1,
+            title: "The Future of AI in Business: Key Trends for 2025",
+            excerpt: "Exploring the most impactful AI trends that will shape business strategy in the coming year, based on my experience building AI solutions.",
+            category: "AI & Technology",
+            date: "Dec 15, 2024",
+            readTime: "5 min read",
+            featured: true
+        },
+        {
+            id: 2,
+            title: "Building a Digital-First Business: Lessons Learned",
+            excerpt: "Key insights from building and scaling digital businesses, including the frameworks and strategies that actually work.",
+            category: "Entrepreneurship",
+            date: "Dec 10, 2024",
+            readTime: "7 min read",
+            featured: false
+        },
+        {
+            id: 3,
+            title: "Data-Driven Marketing: A Complete Framework",
+            excerpt: "How to leverage data analytics and AI to create marketing campaigns that convert and drive sustainable growth.",
+            category: "Marketing",
+            date: "Dec 5, 2024",
+            readTime: "6 min read",
+            featured: false
+        }
+    ];
+
+    // Find the latest blog post (first in array, or you can sort by date)
+    const latestPost = blogPosts.find(post => post.featured) || blogPosts[0];
+    
+    // Update the first insight card with the latest post
+    const firstCard = document.querySelector('.insight-card');
+    if (firstCard && latestPost) {
+        const meta = firstCard.querySelector('.insight-meta');
+        const title = firstCard.querySelector('.insight-title');
+        const excerpt = firstCard.querySelector('.insight-excerpt');
+        const readTime = firstCard.querySelector('.read-time');
+        
+        if (meta) {
+            const category = meta.querySelector('.insight-category');
+            const date = meta.querySelector('.insight-date');
+            
+            if (category) category.textContent = latestPost.category;
+            if (date) date.textContent = latestPost.date;
+        }
+        
+        if (title) {
+            title.textContent = latestPost.title;
+            title.setAttribute('data-post-id', latestPost.id);
+        }
+        
+        if (excerpt) excerpt.textContent = latestPost.excerpt;
+        if (readTime) readTime.textContent = latestPost.readTime;
+    }
+}
+
+// Function to add a new blog post (for future use)
+function addNewBlogPost(postData) {
+    // This function can be called when you publish a new blog post
+    // It will update the latest post display on the homepage
+    console.log('New blog post added:', postData);
+    // You can implement logic here to update the blog posts array
+    // and refresh the display
+}
 
 
 
