@@ -5971,6 +5971,19 @@ section.about-hero {
         gap: var(--space-2xl);
     }
     
+    /* Reorder contact section elements on mobile */
+    .contact-info {
+        order: 1;
+    }
+    
+    .contact-form {
+        order: 2;
+    }
+    
+    .social-links {
+        order: 3;
+    }
+    
     /* MOBILE NAVIGATION - OPTIMIZED & RESPONSIVE */
     /* Mobile menu toggle button */
     .mobile-menu-toggle {
@@ -6715,44 +6728,77 @@ img {
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     }
     
-    /* WORLD-CLASS Social buttons mobile optimization */
+    /* WORLD-CLASS Social buttons mobile optimization - Modern Horizontal Layout */
     .social-buttons {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--space-md);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--space-sm);
         margin-top: var(--space-xl);
+        padding: 0 var(--space-sm);
     }
     
     .social-btn {
-        padding: var(--space-lg) var(--space-md);
-        min-height: 56px;
-        font-size: 0.875rem;
-        font-weight: 600;
-        border-radius: var(--radius-xl);
+        flex: 0 0 auto;
+        width: 80px;
+        height: 80px;
+        padding: var(--space-sm);
+        border-radius: 50%;
         border: 2px solid var(--gray-200);
         background: var(--white);
         color: var(--gray-700);
         text-decoration: none;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: var(--space-sm);
+        gap: var(--space-xs);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .social-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, var(--blue-50), var(--purple-50));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        border-radius: 50%;
     }
     
     .social-btn:hover {
-        transform: translateY(-2px);
-        border-color: var(--blue-300);
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-        background: var(--blue-50);
-        color: var(--blue-700);
+        transform: translateY(-4px) scale(1.05);
+        border-color: var(--blue-400);
+        box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
+        background: var(--white);
+        color: var(--blue-600);
+    }
+    
+    .social-btn:hover::before {
+        opacity: 1;
     }
     
     .social-btn svg {
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
         flex-shrink: 0;
+        z-index: 1;
+        position: relative;
+    }
+    
+    .social-btn span {
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-align: center;
+        line-height: 1;
+        z-index: 1;
+        position: relative;
     }
     
     /* WORLD-CLASS Newsletter form */
@@ -7054,14 +7100,23 @@ img {
     }
     
     .social-buttons {
-        grid-template-columns: 1fr;
         gap: var(--space-xs);
+        padding: 0 var(--space-xs);
     }
     
     .social-btn {
-        padding: var(--space-sm) var(--space-md);
-        font-size: 0.8rem;
-        min-height: 44px;
+        width: 70px;
+        height: 70px;
+        padding: var(--space-xs);
+    }
+    
+    .social-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .social-btn span {
+        font-size: 0.65rem;
     }
     
     .stats-grid {
@@ -7179,9 +7234,18 @@ img {
     }
     
     .social-btn {
-        padding: var(--space-xs) var(--space-sm);
-        font-size: 0.75rem;
-        min-height: 40px;
+        width: 60px;
+        height: 60px;
+        padding: var(--space-xs);
+    }
+    
+    .social-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .social-btn span {
+        font-size: 0.6rem;
     }
 }
 
@@ -7618,9 +7682,18 @@ img {
     }
     
     .social-btn {
+        width: 50px;
+        height: 50px;
         padding: var(--space-xs);
-        font-size: 0.7rem;
-        min-height: 36px;
+    }
+    
+    .social-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .social-btn span {
+        font-size: 0.55rem;
     }
 }
 
