@@ -1,0 +1,15 @@
+/* Mobile Carousel Fix - Minimal Image Display Fix */
+/* Only essential fixes for mobile project image visibility */
+
+@media (max-width: 768px) {
+    .project-image img {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: center !important;
+        border-radius: 20px !important;
+    }
+}

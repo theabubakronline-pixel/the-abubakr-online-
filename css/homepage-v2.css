@@ -1,0 +1,107 @@
+/* Homepage V2 Polishing Overrides - scoped, non-destructive */
+
+:root {
+  --v2-section-pad-desktop: 96px;
+  --v2-section-pad-tablet: 72px;
+  --v2-section-pad-mobile: 56px;
+  --v2-radius: 24px;
+  --v2-shadow: 0 20px 60px rgba(0,0,0,0.10), 0 8px 24px rgba(0,0,0,0.08);
+}
+
+/* Section rhythm */
+section.projects-showcase,
+section.about-section-refined,
+section.blog-section,
+section.final-cta-section,
+footer.footer-cards {
+  padding-top: var(--v2-section-pad-desktop);
+  padding-bottom: var(--v2-section-pad-desktop);
+}
+
+@media (max-width: 992px) {
+  section.projects-showcase,
+  section.about-section-refined,
+  section.blog-section,
+  section.final-cta-section,
+  footer.footer-cards {
+    padding-top: var(--v2-section-pad-tablet);
+    padding-bottom: var(--v2-section-pad-tablet);
+  }
+}
+
+@media (max-width: 640px) {
+  section.projects-showcase,
+  section.about-section-refined,
+  section.blog-section,
+  section.final-cta-section,
+  footer.footer-cards {
+    padding-top: var(--v2-section-pad-mobile);
+    padding-bottom: var(--v2-section-pad-mobile);
+  }
+}
+
+/* Unified card rounding/shadows */
+.about-image-card .about-image-inner,
+.blog-card,
+.fc-card,
+.contact-form-wrapper {
+  border-radius: var(--v2-radius);
+  box-shadow: var(--v2-shadow);
+}
+
+/* Headings spacing tweaks */
+.projects-title,
+.about-refined-heading,
+.blog-title,
+.final-cta-headline {
+  margin-bottom: 18px;
+}
+.projects-subtitle,
+.about-refined-description,
+.blog-subtitle,
+.final-cta-subtext {
+  margin-bottom: 28px;
+}
+
+/* Subtle fade/slide in for section headers */
+.projects-header,
+.about-indicator-refined,
+.blog-header,
+.final-cta-container {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: v2FadeUp 0.6s ease-out 0.15s forwards;
+}
+
+@keyframes v2FadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile header dropdown polish */
+.mobile-menu-overlay {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.mobile-menu-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+.mobile-menu-content {
+  transform: translateY(-8px);
+  opacity: 0.98;
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.mobile-menu-overlay.is-open .mobile-menu-content {
+  transform: translateY(0);
+}
+.mobile-menu-link,
+.mobile-menu-cta-link {
+  padding: 14px 16px;
+}
+
+/* Footer card stack tidy */
+.fc-grid { gap: 24px; }
+.fc-nav a { line-height: 1.4; }
+
+

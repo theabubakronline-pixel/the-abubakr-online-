@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Carousel Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .demo-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .demo-card {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .demo-card:active {
+            transform: scale(0.98);
+        }
+        
+        .demo-image {
+            width: 100%;
+            height: 100%;
+            background: url('assets/images/hero-section-image.png') center/cover;
+            border-radius: 15px;
+        }
+        
+        .demo-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.9));
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-radius: 15px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .demo-card.tapped .demo-content {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        
+        .demo-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .demo-tags {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .demo-tag {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        
+        .demo-button {
+            background: white;
+            color: #333;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .instructions {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h2 style="text-align: center; margin-bottom: 20px;">Mobile Carousel Demo</h2>
+        <p class="instructions">Tap on the card below to see the content appear/disappear</p>
+        
+        <div class="demo-card" onclick="toggleCard(this)">
+            <div class="demo-image"></div>
+            <div class="demo-content">
+                <div class="demo-title">Personal Brand Website</div>
+                <div class="demo-tags">
+                    <span class="demo-tag">HTML5</span>
+                    <span class="demo-tag">CSS3</span>
+                    <span class="demo-tag">JavaScript</span>
+                    <span class="demo-tag">Responsive</span>
+                </div>
+                <a href="#" class="demo-button">View Project →</a>
+            </div>
+        </div>
+        
+        <div style="text-align: center; color: #888; font-size: 0.8rem; margin-top: 20px;">
+            <p>This demonstrates how mobile users can tap to reveal project information</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleCard(card) {
+            card.classList.toggle('tapped');
+        }
+    </script>
+</body>
+</html>
+
+

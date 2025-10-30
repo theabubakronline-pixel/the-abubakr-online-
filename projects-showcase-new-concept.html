@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects Showcase - New Concept</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Story Frames Carousel - Cinematic 3D Concept -->
+    <style>
+        /* Projects Showcase - Story Frames Carousel */
+        .projects-showcase {
+            padding: 120px 0;
+            background: var(--bg-primary);
+            position: relative;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        .projects-showcase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 60%),
+                radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 60%);
+            pointer-events: none;
+            animation: parallaxBackground 20s ease-in-out infinite;
+        }
+
+        /* Dark theme background effects */
+        [data-theme="dark"] .projects-showcase::before {
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 60%),
+                radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.03) 0%, transparent 60%);
+        }
+
+        /* Light theme background effects */
+        [data-theme="light"] .projects-showcase::before {
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(0, 0, 0, 0.02) 0%, transparent 60%),
+                radial-gradient(circle at 70% 80%, rgba(0, 0, 0, 0.01) 0%, transparent 60%);
+        }
+
+        @keyframes parallaxBackground {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-20px) scale(1.02); }
+        }
+
+        .projects-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .projects-header {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .projects-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            position: relative;
+        }
+
+        .projects-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--text-primary), transparent);
+            border-radius: 2px;
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { opacity: 0.6; transform: translateX(-50%) scaleX(1); }
+            50% { opacity: 1; transform: translateX(-50%) scaleX(1.1); }
+        }
+
+        .projects-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        /* Story Frames Carousel Container */
+        .carousel-container {
+            position: relative;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1200px;
+            margin: 0 auto;
+        }
+
+        .carousel-track {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Project Cards - Refined 3D Layout */
+        .project-card {
+            position: absolute;
+            width: 320px;
+            height: 420px;
+            background: var(--bg-primary);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 15px 40px var(--shadow-medium);
+            border: 1px solid var(--border-color);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            opacity: 0.7;
+            scale: 0.85;
+        }
+
+        /* Center Card - Active State (Above All Others) */
+        .project-card.active {
+            opacity: 1;
+            scale: 1.15;
+            transform: translateZ(80px) rotateY(0deg) translateY(-20px);
+            border-color: var(--text-primary);
+            box-shadow: 
+                0 25px 60px var(--shadow-heavy),
+                0 0 0 1px var(--text-primary),
+                0 0 30px rgba(255, 255, 255, 0.1);
+            z-index: 10;
+        }
+
+        /* Dark theme active card glow */
+        [data-theme="dark"] .project-card.active {
+            box-shadow: 
+                0 25px 60px var(--shadow-heavy),
+                0 0 0 1px var(--text-primary),
+                0 0 30px rgba(255, 255, 255, 0.15);
+        }
+
+        /* Light theme active card glow */
+        [data-theme="light"] .project-card.active {
+            box-shadow: 
+                0 25px 60px var(--shadow-heavy),
+                0 0 0 1px var(--text-primary),
+                0 0 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Left Side Cards - Refined Positioning */
+        .project-card.left {
+            transform: translateX(-220px) translateZ(-80px) rotateY(20deg) translateY(10px);
+            opacity: 0.6;
+        }
+
+        .project-card.left-2 {
+            transform: translateX(-420px) translateZ(-160px) rotateY(30deg) translateY(15px);
+            opacity: 0.4;
+        }
+
+        /* Right Side Cards - Refined Positioning */
+        .project-card.right {
+            transform: translateX(220px) translateZ(-80px) rotateY(-20deg) translateY(10px);
+            opacity: 0.6;
+        }
+
+        .project-card.right-2 {
+            transform: translateX(420px) translateZ(-160px) rotateY(-30deg) translateY(15px);
+            opacity: 0.4;
+        }
+
+        /* Card Hover Effects - Refined */
+        .project-card:hover {
+            transform: translateZ(40px) scale(1.05) translateY(-5px);
+            box-shadow: 0 20px 50px var(--shadow-heavy);
+            opacity: 0.9;
+        }
+
+        .project-card.active:hover {
+            transform: translateZ(100px) scale(1.2) translateY(-30px);
+            box-shadow: 
+                0 30px 70px var(--shadow-heavy),
+                0 0 0 1px var(--text-primary),
+                0 0 40px rgba(255, 255, 255, 0.15);
+        }
+
+        /* Dark theme active card hover glow */
+        [data-theme="dark"] .project-card.active:hover {
+            box-shadow: 
+                0 30px 70px var(--shadow-heavy),
+                0 0 0 1px var(--text-primary),
+                0 0 40px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Light theme active card hover glow */
+        [data-theme="light"] .project-card.active:hover {
+            box-shadow: 
+                0 30px 70px var(--shadow-heavy),
+                0 0 0 1px var(--text-primary),
+                0 0 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Project Content Styling - Enhanced with Thumbnails */
+        .project-image {
+            width: 100%;
+            height: 220px;
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--border-color);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            flex-shrink: 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Project Image with Real Thumbnails - Improved Responsiveness */
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 16px;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: block;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+
+        /* Ensure images load properly */
+        .project-image img[src] {
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-image img:not([src]) {
+            opacity: 0;
+        }
+
+        /* Project Image Overlay */
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,0,0,0.1), rgba(0,0,0,0.3));
+            opacity: 0;
+            transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            align-items: flex-end;
+            padding: 16px;
+            border-radius: 16px;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-category {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text-primary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Project-specific gradient backgrounds */
+        .project-card[data-index="0"] .project-image {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .project-card[data-index="1"] .project-image {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .project-card[data-index="2"] .project-image {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .project-card[data-index="3"] .project-image {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .project-card[data-index="4"] .project-image {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        /* Project Icons */
+        .project-icon {
+            font-size: 4rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .project-card:hover .project-icon {
+            transform: scale(1.1);
+            text-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Dark theme project image */
+        [data-theme="dark"] .project-image {
+            border-color: var(--border-color);
+        }
+
+        /* Light theme project image */
+        [data-theme="light"] .project-image {
+            border-color: var(--border-color);
+        }
+
+        /* Mockup Style for Project 5 */
+        .project-card[data-index="4"] .project-image {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            position: relative;
+        }
+
+        .project-card[data-index="4"] .project-image::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            right: 8px;
+            height: 20px;
+            background: #e2e8f0;
+            border-radius: 4px;
+        }
+
+        .project-card[data-index="4"] .project-icon {
+            margin-top: 30px;
+            font-size: 3rem;
+            color: #64748b;
+        }
+
+        /* Enhanced hover effects for all thumbnails */
+        .project-card:hover .project-image {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+            border-color: var(--text-primary);
+        }
+
+        .project-card.active:hover .project-image {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.25);
+            border-color: var(--text-primary);
+        }
+
+        /* Image frame polish */
+        .project-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .project-card:hover .project-image::before {
+            opacity: 1;
+        }
+
+        /* Image loading and fallback improvements */
+        .project-image {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Fallback for images that don't load */
+        .project-image:has(img[src=""]) {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        /* Ensure proper image aspect ratio */
+        .project-image img {
+            min-height: 100%;
+            min-width: 100%;
+            object-fit: cover;
+            object-position: center center;
+        }
+
+        /* Loading state for images */
+        .project-image img[loading="lazy"] {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-image img[loading="lazy"].loaded {
+            opacity: 1;
+        }
+
+        .project-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 0;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            line-height: 1.3;
+            flex-shrink: 0;
+            text-align: center;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 20px;
+            flex-shrink: 0;
+            justify-content: center;
+        }
+
+        .tech-tag {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tech-tag:hover {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        /* Dark theme tech tags */
+        [data-theme="dark"] .tech-tag {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border-color: var(--border-color);
+        }
+
+        [data-theme="dark"] .tech-tag:hover {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        /* Light theme tech tags */
+        [data-theme="light"] .tech-tag {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border-color: var(--border-color);
+        }
+
+        [data-theme="light"] .tech-tag:hover {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        /* CTA Button - Gentle Hover Animation */
+        .project-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--text-primary);
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(10px);
+            flex-shrink: 0;
+            margin-top: auto;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .project-card:hover .project-cta {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-cta:hover {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--shadow-medium);
+        }
+
+        /* Project Content */
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .project-card.featured .project-image {
+            height: 300px;
+        }
+
+        .project-card.small .project-image,
+        .project-card.small-2 .project-image {
+            height: 120px;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+
+        .project-placeholder {
+            font-size: 3rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            opacity: 0.6;
+        }
+
+        .project-card.small .project-placeholder,
+        .project-card.small-2 .project-placeholder {
+            font-size: 2rem;
+        }
+
+        .project-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .project-card.featured .project-title {
+            font-size: 2rem;
+        }
+
+        .project-card.small .project-title,
+        .project-card.small-2 .project-title {
+            font-size: 1.2rem;
+        }
+
+        .project-description {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .project-card.featured .project-description {
+            font-size: 1.1rem;
+        }
+
+        .project-card.small .project-description,
+        .project-card.small-2 .project-description {
+            font-size: 0.9rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tech-tag {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .tech-tag:hover {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        .project-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            border: 1px solid var(--text-primary);
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+        }
+
+        .project-card.featured .project-cta {
+            padding: 16px 32px;
+            font-size: 1rem;
+        }
+
+        .project-cta:hover {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--shadow-medium);
+        }
+
+        /* Navigation Controls */
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10;
+            box-shadow: 0 8px 24px var(--shadow-medium);
+            backdrop-filter: blur(10px);
+        }
+
+        .carousel-nav:hover {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 12px 32px var(--shadow-heavy);
+        }
+
+        .carousel-nav.prev {
+            left: -30px;
+        }
+
+        .carousel-nav.next {
+            right: -30px;
+        }
+
+        .carousel-nav svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Pagination Dots */
+        .carousel-pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin-top: 60px;
+        }
+
+        .pagination-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--border-color);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+        }
+
+        .pagination-dot.active {
+            background: var(--text-primary);
+            transform: scale(1.3);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .pagination-dot:hover {
+            background: var(--text-secondary);
+            transform: scale(1.1);
+        }
+
+        /* Filter Overlay */
+        .filter-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .filter-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .filter-content {
+            background: var(--bg-primary);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px var(--shadow-heavy);
+            border: 1px solid var(--border-color);
+        }
+
+        .filter-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .filter-option {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .filter-option.active {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        .filter-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-close:hover {
+            color: var(--text-primary);
+        }
+
+        /* Responsive Design - Refined Story Frames */
+        @media (max-width: 1024px) {
+            .carousel-container {
+                height: 500px;
+            }
+
+            .project-card {
+                width: 300px;
+                height: 400px;
+                padding: 28px;
+            }
+
+            .project-image {
+                height: 200px;
+                margin-bottom: 24px;
+            }
+
+            .project-card.active {
+                transform: translateZ(70px) rotateY(0deg) translateY(-15px);
+                scale: 1.1;
+            }
+
+            .project-card.left {
+                transform: translateX(-200px) translateZ(-70px) rotateY(18deg) translateY(8px);
+            }
+
+            .project-card.left-2 {
+                transform: translateX(-380px) translateZ(-140px) rotateY(28deg) translateY(12px);
+            }
+
+            .project-card.right {
+                transform: translateX(200px) translateZ(-70px) rotateY(-18deg) translateY(8px);
+            }
+
+            .project-card.right-2 {
+                transform: translateX(380px) translateZ(-140px) rotateY(-28deg) translateY(12px);
+            }
+
+            .carousel-nav {
+                width: 50px;
+                height: 50px;
+            }
+
+            .carousel-nav.prev {
+                left: -25px;
+            }
+
+            .carousel-nav.next {
+                right: -25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .projects-showcase {
+                padding: 100px 0;
+            }
+
+            .projects-title {
+                font-size: 2.5rem;
+            }
+
+            .projects-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .carousel-container {
+                height: 450px;
+            }
+
+            .project-card {
+                width: 280px;
+                height: 380px;
+                padding: 24px;
+            }
+
+            .project-image {
+                height: 180px;
+                margin-bottom: 24px;
+            }
+
+            .project-card.active {
+                transform: translateZ(60px) rotateY(0deg) translateY(-10px);
+                scale: 1.05;
+            }
+
+            .project-card.left {
+                transform: translateX(-180px) translateZ(-60px) rotateY(15deg) translateY(5px);
+            }
+
+            .project-card.left-2 {
+                transform: translateX(-320px) translateZ(-120px) rotateY(25deg) translateY(8px);
+            }
+
+            .project-card.right {
+                transform: translateX(180px) translateZ(-60px) rotateY(-15deg) translateY(5px);
+            }
+
+            .project-card.right-2 {
+                transform: translateX(320px) translateZ(-120px) rotateY(-25deg) translateY(8px);
+            }
+
+            .carousel-nav {
+                width: 45px;
+                height: 45px;
+            }
+
+            .carousel-nav.prev {
+                left: -22px;
+            }
+
+            .carousel-nav.next {
+                right: -22px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .projects-title {
+                font-size: 2rem;
+            }
+
+            .carousel-container {
+                height: 400px;
+            }
+
+            .project-card {
+                width: 260px;
+                height: 360px;
+                padding: 20px;
+            }
+
+            .project-card.active {
+                transform: translateZ(50px) rotateY(0deg) translateY(-8px);
+                scale: 1.05;
+            }
+
+            .project-image {
+                height: 160px;
+                margin-bottom: 24px;
+            }
+
+            .project-image img {
+                object-fit: cover;
+                object-position: center;
+                width: 100%;
+                height: 100%;
+            }
+
+            .project-icon {
+                font-size: 3rem;
+            }
+
+            .project-title {
+                font-size: 1.2rem;
+            }
+
+            .project-description {
+                font-size: 0.9rem;
+            }
+
+            .tech-tag {
+                font-size: 0.65rem;
+                padding: 2px 6px;
+            }
+
+            .carousel-nav {
+                width: 40px;
+                height: 40px;
+            }
+
+            .carousel-nav.prev {
+                left: -20px;
+            }
+
+            .carousel-nav.next {
+                right: -20px;
+            }
+        }
+
+        /* Additional responsive improvements */
+        @media (max-width: 360px) {
+            .project-card {
+                width: 240px;
+                height: 340px;
+                padding: 16px;
+            }
+
+            .project-image {
+                height: 140px;
+                margin-bottom: 24px;
+            }
+
+            .project-icon {
+                font-size: 2.5rem;
+            }
+
+            .project-title {
+                font-size: 1.1rem;
+            }
+
+            .project-description {
+                font-size: 0.85rem;
+            }
+
+            .tech-tag {
+                font-size: 0.6rem;
+                padding: 2px 5px;
+            }
+        }
+
+        /* Ensure images are always visible */
+        .project-image img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* Loading placeholder */
+        .project-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 16px;
+            z-index: 1;
+        }
+
+        .project-image img.loaded + .project-image::before {
+            display: none;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Enhanced Theme Compatibility */
+        
+        /* Dark theme enhancements */
+        [data-theme="dark"] .project-card {
+            background: var(--bg-primary);
+            border-color: var(--border-color);
+            box-shadow: 0 15px 40px var(--shadow-medium);
+        }
+
+        [data-theme="dark"] .project-card:hover {
+            box-shadow: 0 20px 50px var(--shadow-heavy);
+        }
+
+        [data-theme="dark"] .carousel-nav {
+            background: var(--bg-primary);
+            border-color: var(--border-color);
+            color: var(--text-primary);
+        }
+
+        [data-theme="dark"] .carousel-nav:hover {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        [data-theme="dark"] .pagination-dot {
+            background: var(--border-color);
+        }
+
+        [data-theme="dark"] .pagination-dot.active {
+            background: var(--text-primary);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Light theme enhancements */
+        [data-theme="light"] .project-card {
+            background: var(--bg-primary);
+            border-color: var(--border-color);
+            box-shadow: 0 15px 40px var(--shadow-medium);
+        }
+
+        [data-theme="light"] .project-card:hover {
+            box-shadow: 0 20px 50px var(--shadow-heavy);
+        }
+
+        [data-theme="light"] .carousel-nav {
+            background: var(--bg-primary);
+            border-color: var(--border-color);
+            color: var(--text-primary);
+        }
+
+        [data-theme="light"] .carousel-nav:hover {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        [data-theme="light"] .pagination-dot {
+            background: var(--border-color);
+        }
+
+        [data-theme="light"] .pagination-dot.active {
+            background: var(--text-primary);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle for Testing -->
+    <div style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+        <button id="themeToggle" style="
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px;
+            cursor: pointer;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+        ">🌙</button>
+    </div>
+
+    <!-- Projects Showcase Section - New Concept -->
+    <!-- 
+    THUMBNAIL OPTIONS DEMONSTRATED:
+    
+    Project 1 (Center): Real project screenshot with overlay
+    Project 2 (Left): Gradient background with large icon
+    Project 3 (Right): Another real project screenshot
+    Project 4 (Left-2): Gradient background with icon
+    Project 5 (Right-2): Mockup-style with browser bar
+    
+    You can choose any of these styles for your projects!
+    -->
+    <section class="projects-showcase" id="projects">
+        <div class="projects-container">
+            <!-- Section Header -->
+            <div class="projects-header">
+                <h2 class="projects-title">Featured Projects</h2>
+                <p class="projects-subtitle">
+                    A curated collection of my most impactful AI, Tech & Marketing projects that drive real business transformation.
+                </p>
+            </div>
+
+            <!-- Story Frames Carousel -->
+            <div class="carousel-container">
+                <!-- Navigation Arrows -->
+                <button class="carousel-nav prev" id="prevBtn" aria-label="Previous project">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                </button>
+                <button class="carousel-nav next" id="nextBtn" aria-label="Next project">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                </button>
+
+                <!-- Carousel Track -->
+                <div class="carousel-track" id="carouselTrack">
+                    <!-- Project 1 - Active Center -->
+                    <div class="project-card active" data-index="0">
+                        <div class="project-image">
+                            <!-- Option 1: Real Project Screenshot -->
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop&crop=center" 
+                                 alt="AI Business Intelligence Dashboard" 
+                                 loading="lazy">
+                            <div class="project-overlay">
+                                <div class="project-category">AI & Analytics</div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">AI-Powered Business Intelligence</h3>
+                            <div class="project-tech">
+                                <span class="tech-tag">Machine Learning</span>
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Data Science</span>
+                            </div>
+                            <a href="#" class="project-cta">
+                                View Project
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 - Left -->
+                    <div class="project-card left" data-index="1">
+                        <div class="project-image">
+                            <!-- Option 2: Gradient Background with Icon -->
+                            <div class="project-icon">💼</div>
+                            <div class="project-overlay">
+                                <div class="project-category">E-commerce</div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">E-commerce Growth Suite</h3>
+                            <div class="project-tech">
+                                <span class="tech-tag">React</span>
+                                <span class="tech-tag">Node.js</span>
+                            </div>
+                            <a href="#" class="project-cta">
+                                View Project
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 - Right -->
+                    <div class="project-card right" data-index="2">
+                        <div class="project-image">
+                            <!-- Option 3: Another Real Screenshot -->
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop&crop=center" 
+                                 alt="Analytics Dashboard" 
+                                 loading="lazy">
+                            <div class="project-overlay">
+                                <div class="project-category">Data Visualization</div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Analytics Dashboard</h3>
+                            <div class="project-tech">
+                                <span class="tech-tag">Data Viz</span>
+                                <span class="tech-tag">SQL</span>
+                            </div>
+                            <a href="#" class="project-cta">
+                                View Project
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 4 - Left 2 -->
+                    <div class="project-card left-2" data-index="3">
+                        <div class="project-image">
+                            <!-- Option 4: Gradient with Large Icon -->
+                            <div class="project-icon">🎯</div>
+                            <div class="project-overlay">
+                                <div class="project-category">Marketing</div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Marketing Automation</h3>
+                            <div class="project-tech">
+                                <span class="tech-tag">Automation</span>
+                                <span class="tech-tag">AI</span>
+                            </div>
+                            <a href="#" class="project-cta">
+                                View Project
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 5 - Right 2 -->
+                    <div class="project-card right-2" data-index="4">
+                        <div class="project-image">
+                            <!-- Option 5: Mobile App Mockup Style -->
+                            <div class="project-icon">⚡</div>
+                            <div class="project-overlay">
+                                <div class="project-category">SaaS Product</div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">SaaS Product Launch</h3>
+                            <div class="project-tech">
+                                <span class="tech-tag">Product Strategy</span>
+                                <span class="tech-tag">Growth</span>
+                            </div>
+                            <a href="#" class="project-cta">
+                                View Project
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination Dots -->
+            <div class="carousel-pagination" id="paginationDots">
+                <button class="pagination-dot active" data-slide="0"></button>
+                <button class="pagination-dot" data-slide="1"></button>
+                <button class="pagination-dot" data-slide="2"></button>
+                <button class="pagination-dot" data-slide="3"></button>
+                <button class="pagination-dot" data-slide="4"></button>
+            </div>
+        </div>
+
+        <!-- Floating Filter Button -->
+        <button class="floating-filter" id="filterBtn" aria-label="Filter projects">
+            🔍
+        </button>
+
+        <!-- Filter Overlay -->
+        <div class="filter-overlay" id="filterOverlay">
+            <div class="filter-content">
+                <button class="filter-close" id="filterClose">✕</button>
+                <h3 class="filter-title">Filter Projects</h3>
+                <div class="filter-options">
+                    <button class="filter-option active" data-filter="all">All Projects</button>
+                    <button class="filter-option" data-filter="ai">AI & ML</button>
+                    <button class="filter-option" data-filter="web">Web Development</button>
+                    <button class="filter-option" data-filter="marketing">Marketing</button>
+                    <button class="filter-option" data-filter="mobile">Mobile</button>
+                    <button class="filter-option" data-filter="automation">Automation</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript -->
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+            themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+
+        // Initialize with dark theme
+        body.setAttribute('data-theme', 'dark');
+
+        // Story Frames Carousel Functionality
+        class StoryFramesCarousel {
+            constructor() {
+                this.currentIndex = 0;
+                this.totalSlides = 5;
+                this.cards = document.querySelectorAll('.project-card');
+                this.prevBtn = document.getElementById('prevBtn');
+                this.nextBtn = document.getElementById('nextBtn');
+                this.paginationDots = document.querySelectorAll('.pagination-dot');
+                
+                this.init();
+            }
+
+            init() {
+                this.bindEvents();
+                this.updateCarousel();
+                this.startAutoPlay();
+            }
+
+            bindEvents() {
+                this.prevBtn.addEventListener('click', () => this.prevSlide());
+                this.nextBtn.addEventListener('click', () => this.nextSlide());
+                
+                this.paginationDots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => this.goToSlide(index));
+                });
+
+                // Card click to center
+                this.cards.forEach((card, index) => {
+                    card.addEventListener('click', () => this.goToSlide(index));
+                });
+
+                // Touch support
+                this.addTouchSupport();
+            }
+
+            addTouchSupport() {
+                let startX = 0;
+                let startY = 0;
+                let distX = 0;
+                let distY = 0;
+
+                const carouselTrack = document.getElementById('carouselTrack');
+                
+                carouselTrack.addEventListener('touchstart', (e) => {
+                    const touch = e.touches[0];
+                    startX = touch.clientX;
+                    startY = touch.clientY;
+                });
+
+                carouselTrack.addEventListener('touchmove', (e) => {
+                    e.preventDefault();
+                });
+
+                carouselTrack.addEventListener('touchend', (e) => {
+                    const touch = e.changedTouches[0];
+                    distX = touch.clientX - startX;
+                    distY = touch.clientY - startY;
+
+                    if (Math.abs(distX) > Math.abs(distY)) {
+                        if (distX > 50) {
+                            this.prevSlide();
+                        } else if (distX < -50) {
+                            this.nextSlide();
+                        }
+                    }
+                });
+            }
+
+            prevSlide() {
+                this.currentIndex = (this.currentIndex - 1 + this.totalSlides) % this.totalSlides;
+                this.updateCarousel();
+            }
+
+            nextSlide() {
+                this.currentIndex = (this.currentIndex + 1) % this.totalSlides;
+                this.updateCarousel();
+            }
+
+            goToSlide(index) {
+                this.currentIndex = index;
+                this.updateCarousel();
+            }
+
+            updateCarousel() {
+                // Remove all position classes
+                this.cards.forEach(card => {
+                    card.classList.remove('active', 'left', 'right', 'left-2', 'right-2');
+                });
+
+                // Set new positions
+                this.cards.forEach((card, index) => {
+                    const relativeIndex = (index - this.currentIndex + this.totalSlides) % this.totalSlides;
+                    
+                    if (relativeIndex === 0) {
+                        card.classList.add('active');
+                    } else if (relativeIndex === 1) {
+                        card.classList.add('right');
+                    } else if (relativeIndex === 2) {
+                        card.classList.add('right-2');
+                    } else if (relativeIndex === this.totalSlides - 1) {
+                        card.classList.add('left');
+                    } else if (relativeIndex === this.totalSlides - 2) {
+                        card.classList.add('left-2');
+                    }
+                });
+
+                // Update pagination
+                this.paginationDots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === this.currentIndex);
+                });
+            }
+
+            startAutoPlay() {
+                setInterval(() => {
+                    this.nextSlide();
+                }, 5000); // Auto-advance every 5 seconds
+            }
+        }
+
+        // Initialize carousel
+        new StoryFramesCarousel();
+
+        // Enhanced image loading with fallbacks
+        function handleImageLoading() {
+            const images = document.querySelectorAll('.project-image img');
+            
+            images.forEach(img => {
+                // Handle successful load
+                img.addEventListener('load', function() {
+                    this.classList.add('loaded');
+                    this.style.opacity = '1';
+                });
+                
+                // Handle load error
+                img.addEventListener('error', function() {
+                    this.style.display = 'none';
+                    const parent = this.closest('.project-image');
+                    if (parent) {
+                        parent.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                        parent.innerHTML = `
+                            <div class="project-icon">🚀</div>
+                            <div class="project-overlay">
+                                <div class="project-category">Project Preview</div>
+                            </div>
+                        `;
+                    }
+                });
+                
+                // Force load if already cached
+                if (img.complete) {
+                    img.classList.add('loaded');
+                    img.style.opacity = '1';
+                }
+            });
+        }
+
+        // Initialize image loading
+        handleImageLoading();
+
+        // Re-run on carousel updates
+        const originalUpdateCarousel = StoryFramesCarousel.prototype.updateCarousel;
+        StoryFramesCarousel.prototype.updateCarousel = function() {
+            originalUpdateCarousel.call(this);
+            setTimeout(handleImageLoading, 100);
+        };
+
+    </script>
+</body>
+</html>

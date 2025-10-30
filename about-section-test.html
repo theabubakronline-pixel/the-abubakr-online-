@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Section Test - Muhammad Abubakr</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --text-muted: #999999;
+            --border-color: #e5e5e5;
+            --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --shadow-heavy: 0 8px 32px rgba(0, 0, 0, 0.12);
+            --accent-color: #22c55e;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #999999;
+            --border-color: #333333;
+            --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.2);
+            --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.3);
+            --shadow-heavy: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: var(--shadow-light);
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* Concept 1: Split Hero Layout */
+        .about-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            min-height: 600px;
+        }
+
+        .about-image {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--border-color);
+            box-shadow: var(--shadow-heavy);
+            transition: var(--transition);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .about-content h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 50%, var(--accent-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-content p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            line-height: 1.7;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        /* Concept 2: Centered Story Layout */
+        .about-centered {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .centered-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 40px;
+            border: 4px solid var(--border-color);
+            box-shadow: var(--shadow-heavy);
+            transition: var(--transition);
+        }
+
+        .centered-image:hover {
+            transform: scale(1.05);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin: 60px 0;
+        }
+
+        .skill-card {
+            background: var(--bg-secondary);
+            padding: 32px 24px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-color), #3b82f6, #8b5cf6);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .skill-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .skill-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Concept 3: Timeline Journey Layout */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border-color);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 60px;
+            width: 50%;
+            padding: 0 40px;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            text-align: left;
+        }
+
+        .timeline-content {
+            background: var(--bg-secondary);
+            padding: 32px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-light);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 0;
+            height: 0;
+            border: 12px solid transparent;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: -24px;
+            border-left-color: var(--bg-secondary);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -24px;
+            border-right-color: var(--bg-secondary);
+        }
+
+        .timeline-year {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 8px;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .timeline-desc {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -8px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -8px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .about-split {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .about-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                text-align: left !important;
+                padding-left: 60px;
+            }
+
+            .timeline-dot {
+                left: 12px !important;
+            }
+
+            .timeline-content::before {
+                left: -24px !important;
+                border-right-color: var(--bg-secondary) !important;
+                border-left-color: transparent !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section {
+                padding: 40px 0;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .about-content h1 {
+                font-size: 2rem;
+            }
+
+            .profile-image {
+                width: 200px;
+                height: 200px;
+            }
+
+            .centered-image {
+                width: 150px;
+                height: 150px;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Concept 4: Interactive Skills Showcase */
+        .interactive-skills {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .skills-hero {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .skills-profile {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--border-color);
+            box-shadow: var(--shadow-heavy);
+            transition: var(--transition);
+        }
+
+        .skills-profile:hover {
+            transform: scale(1.05);
+        }
+
+        .skills-intro h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .skill-category {
+            background: var(--bg-secondary);
+            padding: 32px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .skill-category:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .category-icon {
+            font-size: 2rem;
+        }
+
+        .category-header h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .skill-items {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .skill-bar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .skill-name {
+            min-width: 120px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #3b82f6);
+            border-radius: 4px;
+            width: 0;
+            transition: width 2s ease-in-out;
+        }
+
+        .skill-percent {
+            min-width: 40px;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-align: right;
+        }
+
+        /* Concept 5: Mission & Values Cards */
+        .mission-values {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .mission-statement {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px;
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .mission-statement h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .mission-statement p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .value-card {
+            background: var(--bg-secondary);
+            padding: 32px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-color), #3b82f6, #8b5cf6);
+        }
+
+        .value-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .value-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .value-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .value-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Concept 6: Testimonials & Social Proof */
+        .testimonials-section {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+            margin-bottom: 60px;
+        }
+
+        .testimonial-card {
+            background: var(--bg-secondary);
+            padding: 32px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 4rem;
+            color: var(--accent-color);
+            opacity: 0.3;
+            font-weight: 800;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .testimonial-content {
+            margin-bottom: 24px;
+        }
+
+        .testimonial-content p {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .author-info h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .author-info span {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .achievements-section {
+            text-align: center;
+            padding: 40px;
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .achievements-section h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 32px;
+            color: var(--text-primary);
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+        }
+
+        .achievement-item {
+            text-align: center;
+        }
+
+        .achievement-number {
+            display: block;
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            margin-bottom: 8px;
+        }
+
+        .achievement-label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        /* Responsive Design for New Concepts */
+        @media (max-width: 768px) {
+            .skills-hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 30px;
+            }
+
+            .skills-intro h1 {
+                font-size: 2rem;
+            }
+
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .achievements-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .skills-profile {
+                width: 150px;
+                height: 150px;
+            }
+
+            .skills-intro h1 {
+                font-size: 1.8rem;
+            }
+
+            .mission-statement h1 {
+                font-size: 2rem;
+            }
+
+            .mission-statement p {
+                font-size: 1rem;
+            }
+
+            .achievements-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <span id="theme-text">🌙 Dark</span>
+    </button>
+
+    <!-- Concept 1: Split Hero Layout -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Concept 1: Split Hero Layout</h2>
+            <p class="section-subtitle">Professional split layout with stats and call-to-action</p>
+            
+            <div class="about-split">
+                <div class="about-image fade-in">
+                    <img src="assets/images/hero-section-image.png" alt="Muhammad Abubakr" class="profile-image">
+                </div>
+                <div class="about-content slide-in-right">
+                    <h1>Building the Future with AI, Tech & Marketing</h1>
+                    <p>I'm Muhammad Abubakr, an entrepreneur passionate about turning innovative ideas into scalable digital businesses. Through AI integration, strategic marketing, and cutting-edge technology, I help businesses grow faster and work smarter.</p>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="50">0</span>
+                            <span class="stat-label">Projects Completed</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="5">0</span>
+                            <span class="stat-label">Years Experience</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="25">0</span>
+                            <span class="stat-label">Businesses Helped</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="15">0</span>
+                            <span class="stat-label">Technologies Mastered</span>
+                        </div>
+                    </div>
+                    
+                    <a href="#contact" class="cta-button">
+                        Let's Connect
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Concept 2: Centered Story Layout -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Concept 2: Centered Story Layout</h2>
+            <p class="section-subtitle">Clean, centered design with skills showcase</p>
+            
+            <div class="about-centered">
+                <img src="assets/images/hero-section-image.png" alt="Muhammad Abubakr" class="centered-image fade-in">
+                
+                <h1 class="fade-in">Turning Ideas into Growth</h1>
+                <p class="fade-in">I'm an entrepreneur who believes in the power of AI, technology, and strategic marketing to transform businesses. My journey is about learning, building, and scaling digital solutions that make a real impact.</p>
+                
+                <div class="skills-grid">
+                    <div class="skill-card fade-in">
+                        <span class="skill-icon">🤖</span>
+                        <h3 class="skill-title">AI Integration</h3>
+                        <p class="skill-desc">Implementing AI solutions to automate processes and enhance business efficiency</p>
+                    </div>
+                    <div class="skill-card fade-in">
+                        <span class="skill-icon">📈</span>
+                        <h3 class="skill-title">Marketing Strategy</h3>
+                        <p class="skill-desc">Data-driven marketing campaigns that deliver measurable growth and ROI</p>
+                    </div>
+                    <div class="skill-card fade-in">
+                        <span class="skill-icon">💻</span>
+                        <h3 class="skill-title">Tech Development</h3>
+                        <p class="skill-desc">Building scalable web applications and digital platforms from concept to launch</p>
+                    </div>
+                    <div class="skill-card fade-in">
+                        <span class="skill-icon">🚀</span>
+                        <h3 class="skill-title">Business Scaling</h3>
+                        <p class="skill-desc">Strategic planning and execution to scale businesses from startup to enterprise</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Concept 3: Timeline Journey Layout -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Concept 3: Timeline Journey Layout</h2>
+            <p class="section-subtitle">Visual storytelling of your professional journey</p>
+            
+            <div class="timeline">
+                <div class="timeline-item fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2019</div>
+                        <h3 class="timeline-title">Started My Journey</h3>
+                        <p class="timeline-desc">Began exploring the intersection of technology and business, diving deep into web development and digital marketing fundamentals.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2021</div>
+                        <h3 class="timeline-title">First Business Venture</h3>
+                        <p class="timeline-desc">Launched my first digital business, learning the ropes of entrepreneurship while building and marketing web solutions for clients.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2022</div>
+                        <h3 class="timeline-title">AI Integration Focus</h3>
+                        <p class="timeline-desc">Shifted focus to AI and automation, helping businesses implement intelligent solutions that reduce manual work and increase efficiency.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2023</div>
+                        <h3 class="timeline-title">Scaling & Growth</h3>
+                        <p class="timeline-desc">Developed comprehensive strategies for business scaling, combining AI, marketing, and technology to help entrepreneurs grow faster.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2024</div>
+                        <h3 class="timeline-title">Current Focus</h3>
+                        <p class="timeline-desc">Building and scaling digital businesses through AI, Tech, and Marketing while helping other entrepreneurs turn their ideas into reality.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Concept 4: Interactive Skills Showcase -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Concept 4: Interactive Skills Showcase</h2>
+            <p class="section-subtitle">Dynamic skill visualization with progress bars and interactive elements</p>
+            
+            <div class="interactive-skills">
+                <div class="skills-hero">
+                    <img src="assets/images/hero-section-image.png" alt="Muhammad Abubakr" class="skills-profile fade-in">
+                    <div class="skills-intro slide-in-right">
+                        <h1>Mastering the Art of Digital Growth</h1>
+                        <p>I combine technical expertise with strategic thinking to build businesses that scale. Here's how I approach each challenge:</p>
+                    </div>
+                </div>
+                
+                <div class="skills-container">
+                    <div class="skill-category fade-in">
+                        <div class="category-header">
+                            <span class="category-icon">🤖</span>
+                            <h3>AI & Automation</h3>
+                        </div>
+                        <div class="skill-items">
+                            <div class="skill-bar">
+                                <span class="skill-name">Machine Learning</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-width="90"></div>
+                                </div>
+                                <span class="skill-percent">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <span class="skill-name">Process Automation</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-width="95"></div>
+                                </div>
+                                <span class="skill-percent">95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <span class="skill-name">Data Analysis</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-width="85"></div>
+                                </div>
+                                <span class="skill-percent">85%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category fade-in">
+                        <div class="category-header">
+                            <span class="category-icon">💻</span>
+                            <h3>Technology</h3>
+                        </div>
+                        <div class="skill-items">
+                            <div class="skill-bar">
+                                <span class="skill-name">Web Development</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-width="95"></div>
+                                </div>
+                                <span class="skill-percent">95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <span class="skill-name">Mobile Apps</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-width="80"></div>
+                                </div>
+                                <span class="skill-percent">80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <span class="skill-name">Cloud Solutions</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-width="88"></div>
+                                </div>
+                                <span class="skill-percent">88%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category fade-in">
+                        <div class="category-header">
+                            <span class="category-icon">📈</span>
+                            <h3>Marketing & Growth</h3>
+                        </div>
+                        <div class="skill-items">
+                            <div class="skill-bar">
+                                <span class="skill-name">Digital Marketing</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-width="92"></div>
+                                </div>
+                                <span class="skill-percent">92%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <span class="skill-name">Growth Hacking</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-width="88"></div>
+                                </div>
+                                <span class="skill-percent">88%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <span class="skill-name">Brand Strategy</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-width="90"></div>
+                                </div>
+                                <span class="skill-percent">90%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Concept 5: Mission & Values Cards -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Concept 5: Mission & Values Cards</h2>
+            <p class="section-subtitle">Showcasing your core values and mission through elegant card design</p>
+            
+            <div class="mission-values">
+                <div class="mission-statement fade-in">
+                    <h1>My Mission</h1>
+                    <p>To empower entrepreneurs and businesses with AI-driven solutions that automate processes, accelerate growth, and create sustainable competitive advantages in the digital economy.</p>
+                </div>
+                
+                <div class="values-grid">
+                    <div class="value-card fade-in">
+                        <div class="value-icon">🚀</div>
+                        <h3>Innovation First</h3>
+                        <p>Always exploring cutting-edge technologies and methodologies to stay ahead of the curve and deliver exceptional results.</p>
+                    </div>
+                    
+                    <div class="value-card fade-in">
+                        <div class="value-icon">🎯</div>
+                        <h3>Results-Driven</h3>
+                        <p>Every project is measured by its impact on business growth, efficiency, and long-term success for my clients.</p>
+                    </div>
+                    
+                    <div class="value-card fade-in">
+                        <div class="value-icon">🤝</div>
+                        <h3>Collaborative</h3>
+                        <p>Building strong partnerships with clients, understanding their vision, and working together to achieve shared goals.</p>
+                    </div>
+                    
+                    <div class="value-card fade-in">
+                        <div class="value-icon">📚</div>
+                        <h3>Continuous Learning</h3>
+                        <p>Committed to staying updated with the latest trends, technologies, and best practices in AI, tech, and marketing.</p>
+                    </div>
+                    
+                    <div class="value-card fade-in">
+                        <div class="value-icon">⚡</div>
+                        <h3>Efficiency Focus</h3>
+                        <p>Streamlining processes and eliminating waste to help businesses run smoother, faster, and more profitably.</p>
+                    </div>
+                    
+                    <div class="value-card fade-in">
+                        <div class="value-icon">🌱</div>
+                        <h3>Sustainable Growth</h3>
+                        <p>Building solutions that scale sustainably, ensuring long-term success and positive impact for all stakeholders.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Concept 6: Testimonials & Social Proof -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Concept 6: Testimonials & Social Proof</h2>
+            <p class="section-subtitle">Building trust through client success stories and achievements</p>
+            
+            <div class="testimonials-section">
+                <div class="testimonials-grid">
+                    <div class="testimonial-card fade-in">
+                        <div class="testimonial-content">
+                            <p>"Muhammad transformed our business with AI automation. Our efficiency increased by 300% and we're now scaling faster than ever."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">👨‍💼</div>
+                            <div class="author-info">
+                                <h4>Sarah Johnson</h4>
+                                <span>CEO, TechStart Inc.</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card fade-in">
+                        <div class="testimonial-content">
+                            <p>"The marketing strategies Muhammad implemented helped us reach 50K+ users in just 3 months. Incredible results!"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">👩‍💻</div>
+                            <div class="author-info">
+                                <h4>Mike Chen</h4>
+                                <span>Founder, Digital Solutions</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card fade-in">
+                        <div class="testimonial-content">
+                            <p>"Working with Muhammad was a game-changer. His technical expertise and business acumen are unmatched."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">👨‍🎓</div>
+                            <div class="author-info">
+                                <h4>Dr. Emily Rodriguez</h4>
+                                <span>CTO, InnovateLab</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="achievements-section fade-in">
+                    <h3>Key Achievements</h3>
+                    <div class="achievements-grid">
+                        <div class="achievement-item">
+                            <span class="achievement-number">50+</span>
+                            <span class="achievement-label">Projects Delivered</span>
+                        </div>
+                        <div class="achievement-item">
+                            <span class="achievement-number">25+</span>
+                            <span class="achievement-label">Happy Clients</span>
+                        </div>
+                        <div class="achievement-item">
+                            <span class="achievement-number">300%</span>
+                            <span class="achievement-label">Average ROI</span>
+                        </div>
+                        <div class="achievement-item">
+                            <span class="achievement-number">5★</span>
+                            <span class="achievement-label">Client Rating</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            const themeText = document.getElementById('theme-text');
+            
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.setAttribute('data-theme', 'light');
+                themeText.textContent = '🌙 Dark';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeText.textContent = '☀️ Light';
+            }
+        }
+
+        // Initialize theme
+        document.body.setAttribute('data-theme', 'light');
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Counter Animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-count'));
+                const duration = 2000; // 2 seconds
+                const increment = target / (duration / 16); // 60fps
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    counter.textContent = Math.floor(current);
+                }, 16);
+            });
+        }
+
+        // Trigger counter animation when stats section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const statsSection = document.querySelector('.stats-grid');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // Progress Bar Animation
+        function animateProgressBars() {
+            const progressBars = document.querySelectorAll('.progress-fill');
+            
+            progressBars.forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                setTimeout(() => {
+                    bar.style.width = width + '%';
+                }, 500);
+            });
+        }
+
+        // Observe progress bars for animation
+        const progressObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateProgressBars();
+                    progressObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const skillsSection = document.querySelector('.skills-container');
+        if (skillsSection) {
+            progressObserver.observe(skillsSection);
+        }
+
+        // Achievement Counter Animation
+        function animateAchievements() {
+            const achievements = document.querySelectorAll('.achievement-number');
+            
+            achievements.forEach(achievement => {
+                const text = achievement.textContent;
+                const isPercentage = text.includes('%');
+                const isStar = text.includes('★');
+                const isPlus = text.includes('+');
+                
+                let target = 0;
+                if (isPercentage) {
+                    target = parseInt(text.replace('%', ''));
+                } else if (isStar) {
+                    target = parseInt(text.replace('★', ''));
+                } else if (isPlus) {
+                    target = parseInt(text.replace('+', ''));
+                } else {
+                    target = parseInt(text);
+                }
+                
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    
+                    let displayValue = Math.floor(current);
+                    if (isPercentage) displayValue += '%';
+                    if (isStar) displayValue += '★';
+                    if (isPlus) displayValue += '+';
+                    
+                    achievement.textContent = displayValue;
+                }, 16);
+            });
+        }
+
+        // Observe achievements for animation
+        const achievementsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateAchievements();
+                    achievementsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const achievementsSection = document.querySelector('.achievements-grid');
+        if (achievementsSection) {
+            achievementsObserver.observe(achievementsSection);
+        }
+    </script>
+</body>
+</html>

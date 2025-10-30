@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects Story Frames Carousel - Muhammad Abubakr</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Story Frames Carousel Styles -->
+    <style>
+        /* CSS Custom Properties for Theme */
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --text-primary: #000000;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            --border-color: #e5e7eb;
+            --shadow-light: rgba(0, 0, 0, 0.05);
+            --shadow-medium: rgba(0, 0, 0, 0.1);
+            --shadow-heavy: rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #000000;
+            --bg-secondary: #111111;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --border-color: #27272a;
+            --shadow-light: rgba(255, 255, 255, 0.05);
+            --shadow-medium: rgba(255, 255, 255, 0.1);
+            --shadow-heavy: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Projects Story Frames Carousel */
+        .projects-story-section {
+            padding: 120px 0;
+            background: #ffffff;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Dark theme background */
+        [data-theme="dark"] .projects-story-section {
+            background: #000000;
+        }
+
+        /* Light theme background */
+        [data-theme="light"] .projects-story-section {
+            background: #ffffff;
+        }
+
+        .projects-story-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, var(--shadow-light) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, var(--shadow-light) 0%, transparent 50%);
+            pointer-events: none;
+            animation: subtleFloat 15s ease-in-out infinite;
+        }
+
+        @keyframes subtleFloat {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-10px) scale(1.01); }
+        }
+
+        .projects-story-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+
+        /* Section Header */
+        .projects-story-header {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .projects-story-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            position: relative;
+        }
+
+        .projects-story-title::after {
+            content: '';
+            position: absolute;
+            bottom: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: clamp(80px, 15vw, 120px);
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--text-primary), transparent);
+            border-radius: 2px;
+            animation: titlePulse 4s ease-in-out infinite;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% { opacity: 0.4; transform: translateX(-50%) scaleX(1); }
+            50% { opacity: 0.8; transform: translateX(-50%) scaleX(1.1); }
+        }
+
+        .projects-story-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        /* Story Frames Carousel */
+        .story-frames-carousel {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            background: #f8f9fa;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        /* Dark theme carousel */
+        [data-theme="dark"] .story-frames-carousel {
+            background: #111111;
+            box-shadow: 0 20px 60px rgba(255, 255, 255, 0.05);
+            border: 1px solid #27272a;
+        }
+
+        /* Light theme carousel */
+        [data-theme="light"] .story-frames-carousel {
+            background: #f8f9fa;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+        }
+
+        .story-frames-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        .story-frame-slide {
+            min-width: 100%;
+            padding: 60px 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Story Cards Grid */
+        .story-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(20px, 4vw, 40px);
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* Story Card */
+        .story-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            height: clamp(350px, 50vw, 450px);
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        /* Dark theme story card */
+        [data-theme="dark"] .story-card {
+            background: #000000;
+            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.05);
+            border: 1px solid #27272a;
+        }
+
+        /* Light theme story card */
+        [data-theme="light"] .story-card {
+            background: #ffffff;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+        }
+
+        .story-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px var(--shadow-medium);
+            border-color: var(--text-primary);
+        }
+
+        /* Story Card Image */
+        .story-card-image {
+            width: 100%;
+            height: clamp(180px, 25vw, 220px);
+            background: #f8f9fa;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        /* Dark theme story card image */
+        [data-theme="dark"] .story-card-image {
+            background: #111111;
+            border-bottom: 1px solid #27272a;
+        }
+
+        /* Light theme story card image */
+        [data-theme="light"] .story-card-image {
+            background: #f8f9fa;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .story-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .story-card:hover .story-card-image img {
+            transform: scale(1.05);
+        }
+
+        .story-card-placeholder {
+            font-size: 3rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            opacity: 0.6;
+            transition: var(--transition);
+        }
+
+        /* Story Card Content */
+        .story-card-content {
+            padding: 32px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .story-card-front {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .story-card-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: clamp(24px, 4vw, 32px);
+            background: #ffffff;
+            border-radius: 0 0 20px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Dark theme story card back */
+        [data-theme="dark"] .story-card-back {
+            background: #000000;
+        }
+
+        /* Light theme story card back */
+        [data-theme="light"] .story-card-back {
+            background: #ffffff;
+        }
+
+        .story-card:hover .story-card-front {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        .story-card:hover .story-card-back {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .story-card-title {
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .story-card-description {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .story-card-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: clamp(10px, 2vw, 14px) clamp(20px, 4vw, 28px);
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: clamp(0.85rem, 2vw, 1rem);
+            transition: var(--transition);
+            border: 1px solid var(--text-primary);
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .story-card:hover .story-card-cta {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.2s;
+        }
+
+        .story-card-cta:hover {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--shadow-medium);
+        }
+
+        /* Navigation Controls */
+        .story-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 50%;
+            width: clamp(48px, 8vw, 56px);
+            height: clamp(48px, 8vw, 56px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        /* Dark theme navigation */
+        [data-theme="dark"] .story-nav {
+            background: #000000;
+            border: 1px solid #27272a;
+            box-shadow: 0 4px 16px rgba(255, 255, 255, 0.05);
+        }
+
+        /* Light theme navigation */
+        [data-theme="light"] .story-nav {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+        }
+
+        .story-nav:hover {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 8px 24px var(--shadow-medium);
+        }
+
+        .story-nav.prev {
+            left: clamp(-24px, -4vw, -28px);
+        }
+
+        .story-nav.next {
+            right: clamp(-24px, -4vw, -28px);
+        }
+
+        .story-nav svg {
+            width: clamp(20px, 4vw, 24px);
+            height: clamp(20px, 4vw, 24px);
+        }
+
+        /* Pagination Dots */
+        .story-pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin-top: 60px;
+        }
+
+        .story-pagination-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--border-color);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+        }
+
+        .story-pagination-dot.active {
+            background: var(--text-primary);
+            transform: scale(1.3);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        [data-theme="light"] .story-pagination-dot.active {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .story-pagination-dot:hover {
+            background: var(--text-secondary);
+            transform: scale(1.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .story-cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: clamp(20px, 3vw, 32px);
+            }
+            
+            .story-frame-slide {
+                padding: clamp(40px, 6vw, 60px) clamp(24px, 4vw, 40px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .projects-story-section {
+                padding: clamp(80px, 12vw, 120px) 0;
+                min-height: auto;
+            }
+            
+            .projects-story-header {
+                margin-bottom: clamp(40px, 8vw, 80px);
+            }
+            
+            .story-cards-grid {
+                grid-template-columns: 1fr;
+                gap: clamp(16px, 3vw, 24px);
+            }
+            
+            .story-frame-slide {
+                padding: clamp(32px, 5vw, 48px) clamp(16px, 3vw, 24px);
+            }
+            
+            .story-nav {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .projects-story-container {
+                padding: 0 16px;
+            }
+            
+            .story-frame-slide {
+                padding: 24px 16px;
+            }
+        }
+
+        /* Large screens */
+        @media (min-width: 1400px) {
+            .story-cards-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 48px;
+            }
+            
+            .story-frame-slide {
+                padding: 80px 60px;
+            }
+        }
+
+        /* Touch Support */
+        .story-frames-carousel {
+            touch-action: pan-y;
+        }
+
+        /* Accessibility */
+        .story-card:focus {
+            outline: 2px solid var(--text-primary);
+            outline-offset: 2px;
+        }
+
+        .story-nav:focus {
+            outline: 2px solid var(--text-primary);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle for Testing -->
+    <div style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+        <button id="themeToggle" style="
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px;
+            cursor: pointer;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+        ">🌙</button>
+    </div>
+
+    <!-- Projects Story Frames Carousel Section -->
+    <section class="projects-story-section" id="projects">
+        <div class="projects-story-container">
+            <!-- Section Header -->
+            <div class="projects-story-header">
+                <h2 class="projects-story-title">Every Project Tells a Story of Growth</h2>
+                <p class="projects-story-subtitle">
+                    These aren't just projects — they're steps in a journey of learning, building, and helping ideas turn into something real.
+                </p>
+            </div>
+
+            <!-- Story Frames Carousel -->
+            <div class="story-frames-carousel">
+                <!-- Navigation Arrows -->
+                <button class="story-nav prev" id="prevBtn" aria-label="Previous projects">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                </button>
+                <button class="story-nav next" id="nextBtn" aria-label="Next projects">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                </button>
+
+                <!-- Carousel Track -->
+                <div class="story-frames-track" id="storyTrack">
+                    <!-- Slide 1 -->
+                    <div class="story-frame-slide">
+                        <div class="story-cards-grid">
+                            <!-- Story Card 1 -->
+                            <div class="story-card">
+                                <div class="story-card-image">
+                                    <div class="story-card-placeholder">🚀</div>
+                                </div>
+                                <div class="story-card-content">
+                                    <div class="story-card-front">
+                                        <h3 class="story-card-title">AI-Powered Business Intelligence</h3>
+                                    </div>
+                                    <div class="story-card-back">
+                                        <p class="story-card-description">
+                                            "Started with a simple question: 'What if data could tell us not just what happened, but what's coming next?' This project became my gateway into the world of predictive analytics."
+                                        </p>
+                                        <a href="#" class="story-card-cta">
+                                            View Project
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Story Card 2 -->
+                            <div class="story-card">
+                                <div class="story-card-image">
+                                    <div class="story-card-placeholder">💼</div>
+                                </div>
+                                <div class="story-card-content">
+                                    <div class="story-card-front">
+                                        <h3 class="story-card-title">E-commerce Growth Platform</h3>
+                                    </div>
+                                    <div class="story-card-back">
+                                        <p class="story-card-description">
+                                            "Every failed checkout was a lost dream. I built this platform to turn those moments of frustration into moments of joy for both businesses and customers."
+                                        </p>
+                                        <a href="#" class="story-card-cta">
+                                            View Project
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Story Card 3 -->
+                            <div class="story-card">
+                                <div class="story-card-image">
+                                    <div class="story-card-placeholder">📊</div>
+                                </div>
+                                <div class="story-card-content">
+                                    <div class="story-card-front">
+                                        <h3 class="story-card-title">Analytics Dashboard</h3>
+                                    </div>
+                                    <div class="story-card-back">
+                                        <p class="story-card-description">
+                                            "Numbers tell stories, but only if you know how to listen. This dashboard was my way of making data speak in a language everyone could understand."
+                                        </p>
+                                        <a href="#" class="story-card-cta">
+                                            View Project
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="story-frame-slide">
+                        <div class="story-cards-grid">
+                            <!-- Story Card 4 -->
+                            <div class="story-card">
+                                <div class="story-card-image">
+                                    <div class="story-card-placeholder">🎯</div>
+                                </div>
+                                <div class="story-card-content">
+                                    <div class="story-card-front">
+                                        <h3 class="story-card-title">Marketing Automation Suite</h3>
+                                    </div>
+                                    <div class="story-card-back">
+                                        <p class="story-card-description">
+                                            "I realized that the best marketing feels personal, not automated. This suite helps businesses create genuine connections at scale."
+                                        </p>
+                                        <a href="#" class="story-card-cta">
+                                            View Project
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Story Card 5 -->
+                            <div class="story-card">
+                                <div class="story-card-image">
+                                    <div class="story-card-placeholder">⚡</div>
+                                </div>
+                                <div class="story-card-content">
+                                    <div class="story-card-front">
+                                        <h3 class="story-card-title">SaaS Product Launch</h3>
+                                    </div>
+                                    <div class="story-card-back">
+                                        <p class="story-card-description">
+                                            "From idea to $100K ARR in 6 months. This wasn't just about building software—it was about understanding what people truly needed."
+                                        </p>
+                                        <a href="#" class="story-card-cta">
+                                            View Project
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Story Card 6 -->
+                            <div class="story-card">
+                                <div class="story-card-image">
+                                    <div class="story-card-placeholder">🔧</div>
+                                </div>
+                                <div class="story-card-content">
+                                    <div class="story-card-front">
+                                        <h3 class="story-card-title">Process Automation</h3>
+                                    </div>
+                                    <div class="story-card-back">
+                                        <p class="story-card-description">
+                                            "Sometimes the best solutions are invisible. This automation suite works quietly in the background, giving people time to focus on what matters most."
+                                        </p>
+                                        <a href="#" class="story-card-cta">
+                                            View Project
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination Dots -->
+            <div class="story-pagination" id="storyPagination">
+                <button class="story-pagination-dot active" data-slide="0"></button>
+                <button class="story-pagination-dot" data-slide="1"></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript -->
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+            themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+
+        // Initialize with dark theme
+        body.setAttribute('data-theme', 'dark');
+
+        // Story Frames Carousel
+        class StoryFramesCarousel {
+            constructor() {
+                this.currentSlide = 0;
+                this.totalSlides = 2;
+                this.storyTrack = document.getElementById('storyTrack');
+                this.prevBtn = document.getElementById('prevBtn');
+                this.nextBtn = document.getElementById('nextBtn');
+                this.paginationDots = document.querySelectorAll('.story-pagination-dot');
+                this.storyCards = document.querySelectorAll('.story-card');
+                
+                this.init();
+            }
+
+            init() {
+                this.bindEvents();
+                this.updateCarousel();
+                this.setupTouchSupport();
+                this.setupKeyboardNavigation();
+            }
+
+            bindEvents() {
+                this.prevBtn.addEventListener('click', () => this.prevSlide());
+                this.nextBtn.addEventListener('click', () => this.nextSlide());
+                
+                this.paginationDots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => this.goToSlide(index));
+                });
+
+                // Story card interactions
+                this.storyCards.forEach(card => {
+                    card.addEventListener('mouseenter', () => {
+                        this.pauseAutoPlay();
+                    });
+                    
+                    card.addEventListener('mouseleave', () => {
+                        this.resumeAutoPlay();
+                    });
+                });
+            }
+
+            setupTouchSupport() {
+                let startX = 0;
+                let startY = 0;
+                let distX = 0;
+                let distY = 0;
+
+                const carousel = document.querySelector('.story-frames-carousel');
+                
+                carousel.addEventListener('touchstart', (e) => {
+                    const touch = e.touches[0];
+                    startX = touch.clientX;
+                    startY = touch.clientY;
+                });
+
+                carousel.addEventListener('touchmove', (e) => {
+                    e.preventDefault();
+                });
+
+                carousel.addEventListener('touchend', (e) => {
+                    const touch = e.changedTouches[0];
+                    distX = touch.clientX - startX;
+                    distY = touch.clientY - startY;
+
+                    if (Math.abs(distX) > Math.abs(distY)) {
+                        if (distX > 50) {
+                            this.prevSlide();
+                        } else if (distX < -50) {
+                            this.nextSlide();
+                        }
+                    }
+                });
+            }
+
+            setupKeyboardNavigation() {
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') {
+                        this.prevSlide();
+                    } else if (e.key === 'ArrowRight') {
+                        this.nextSlide();
+                    }
+                });
+            }
+
+            prevSlide() {
+                this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+                this.updateCarousel();
+            }
+
+            nextSlide() {
+                this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+                this.updateCarousel();
+            }
+
+            goToSlide(slideIndex) {
+                this.currentSlide = slideIndex;
+                this.updateCarousel();
+            }
+
+            updateCarousel() {
+                const translateX = -this.currentSlide * 100;
+                this.storyTrack.style.transform = `translateX(${translateX}%)`;
+
+                // Update pagination dots
+                this.paginationDots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === this.currentSlide);
+                });
+
+                // Update navigation button states
+                this.prevBtn.style.opacity = this.currentSlide === 0 ? '0.5' : '1';
+                this.nextBtn.style.opacity = this.currentSlide === this.totalSlides - 1 ? '0.5' : '1';
+            }
+
+            pauseAutoPlay() {
+                if (this.autoPlayInterval) {
+                    clearInterval(this.autoPlayInterval);
+                }
+            }
+
+            resumeAutoPlay() {
+                this.autoPlayInterval = setInterval(() => {
+                    this.nextSlide();
+                }, 6000); // Auto-advance every 6 seconds
+            }
+
+            startAutoPlay() {
+                this.autoPlayInterval = setInterval(() => {
+                    this.nextSlide();
+                }, 6000);
+            }
+        }
+
+        // Initialize carousel when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousel = new StoryFramesCarousel();
+            carousel.startAutoPlay();
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            // Recalculate carousel on resize
+            const carousel = document.querySelector('.story-frames-carousel');
+            if (carousel) {
+                carousel.style.transform = 'translateX(0)';
+            }
+        });
+    </script>
+</body>
+</html>
